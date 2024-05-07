@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFAEE"
+    tools:context=".UserHome_Activity">
+
+    <ImageView
+        android:id="@+id/contactUs_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pay_iv"
+        app:layout_constraintTop_toBottomOf="@+id/lendingHistory_iv"
+        app:srcCompat="@drawable/baseline_call_24" />
+
+    <ImageView
+        android:id="@+id/lendingHistory_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/contactUs_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/libraryCatalogue_iv"
+        app:layout_constraintTop_toBottomOf="@+id/returnBook_iv"
+        app:srcCompat="@drawable/kb_lending_history" />
+
+    <ImageView
+        android:id="@+id/libraryCatalogue_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/pay_iv"
+        app:layout_constraintEnd_toStartOf="@+id/lendingHistory_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lendBook_iv"
+        app:srcCompat="@drawable/kb_our_catalogue" />
+
+    <ImageView
+        android:id="@+id/lendBook_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/libraryCatalogue_iv"
+        app:layout_constraintEnd_toStartOf="@+id/returnBook_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kb_lend_book" />
+
+    <ImageView
+        android:id="@+id/pay_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginEnd="59dp"
+        android:layout_marginBottom="57dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/contactUs_iv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/libraryCatalogue_iv"
+        app:srcCompat="@drawable/kb_pay_fine" />
+
+    <ImageView
+        android:id="@+id/returnBook_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="52dp"
+        app:layout_constraintBottom_toTopOf="@+id/lendingHistory_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lendBook_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/kb_return_book" />
+
+    <TextView
+        android:id="@+id/userWelcomeID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/dela_gothic_one"
+        android:text="Welcome !!!"
+        android:textColor="#A785C1"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

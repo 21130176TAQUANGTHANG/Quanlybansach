@@ -1,0 +1,38 @@
+.shopping-cart {
+    width: 80%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#table-shopping {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.text-cart{
+    font-size: 20px;
+    text-align: center;
+}
+
+td {
+    padding: 10px;
+}
+
+.remove {
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+}
+.remove i:hover {
+    color: red;
+}
+
+.total {
+    text-align: right;
+}

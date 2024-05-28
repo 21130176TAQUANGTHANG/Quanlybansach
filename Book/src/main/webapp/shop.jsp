@@ -104,9 +104,9 @@
         </div>
     </div>
 </div>
-<!-- ##### Breadcumb Area End ##### -->
 
 <!-- ##### Shop Grid Area Start ##### -->
+
 <section class="shop_grid_area section-padding-80">
     <div class="container">
         <div class="row">

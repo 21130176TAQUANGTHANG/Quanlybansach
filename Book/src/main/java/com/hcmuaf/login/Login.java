@@ -15,7 +15,6 @@ public class Login extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String username = request.getParameter("loginName");
         String password = request.getParameter("loginPassword");
         ControllerDAO dao = new ControllerDAO();
@@ -24,13 +23,12 @@ public class Login extends HttpServlet {
             request.setAttribute("error", "email hoặc mật khẩu không chính xác");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("auth", a);
             if ("admin".equals(username) && "admin".equals(password)) {
                 response.sendRedirect("admin.jsp");
             } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("auth", a);
                 response.sendRedirect("index.jsp");
-//                Mail.sendMail(username,"Heloo bro", "you are handsoe");
             }
         }
     }

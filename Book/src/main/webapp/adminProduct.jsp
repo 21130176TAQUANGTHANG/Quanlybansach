@@ -93,7 +93,8 @@
 
 <nav class="admin-nav">
     <a href="index.jsp">Trang chủ</a>
-    <a href="#">Biểu đồ</a>
+    <a href="admin.jsp">Thông tin cá nhân</a>
+    <a href="adminChart.jsp">Biểu đồ</a>
     <a href="adminUser.jsp">Tài khoản người dùng</a>
     <a href="adminProduct.jsp">Sản phẩm</a>
 </nav>
@@ -225,6 +226,10 @@
         </form>
     </div>
 </div>
+
+<footer>
+    &copy; 2023 Admin Management - Design by RECKLESS a.k.a Thắng
+</footer>
 
 </body>
 <script>

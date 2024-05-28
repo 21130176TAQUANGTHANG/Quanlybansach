@@ -354,7 +354,7 @@
         <div class="row mt-5">
             <div class="col-md-12 text-center">
                 <p>
-                    &copy; <script>document.write(new Date().getFullYear());</script> Bản quyền thuộc về cửa hàng sách | Được thiết kế bởi <a href="admin.jsp" target="_blank">Colorlib</a>, phân phối bởi <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+                    &copy; <script>document.write(new Date().getFullYear());</script> Bản quyền thuộc về cửa hàng sách | Được thiết kế bởi <a href="admin.jsp" target="_blank">Colorlib</a>, phân phối bởi <a href="index.jsp" target="_blank">ThemeWagon</a>
                 </p>
             </div>
         </div>

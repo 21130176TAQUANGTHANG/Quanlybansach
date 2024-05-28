@@ -1,6 +1,7 @@
 package com.hcmuaf.db;
 
 import com.hcmuaf.Product.*;
+import com.hcmuaf.PurchaseStatistics;
 import com.hcmuaf.login.User;
 
 import java.sql.*;
@@ -549,6 +550,38 @@ public class ControllerDAO {
             e.printStackTrace();
         }
         return true;
+    }
+    public List<PurchaseStatistics> getUserPurchaseStatistics() {
+        List<PurchaseStatistics> list = new ArrayList<>();
+        String query = "SELECT YEAR(orderDate) AS year, MONTH(orderDate) AS month, DAY(orderDate) AS day, COUNT(DISTINCT id) AS userCount " +
+                "FROM orderproduct " +
+                "GROUP BY YEAR(orderDate), MONTH(orderDate), DAY(orderDate)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new PurchaseStatistics(
+                        rs.getInt("year"),
+                        rs.getInt("month"),
+                        rs.getInt("day"),
+                        rs.getInt("userCount")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return list;
     }
 
 

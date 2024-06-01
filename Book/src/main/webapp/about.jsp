@@ -1,3 +1,5 @@
+<%@ page import="com.hcmuaf.login.User" %>
+<%@ page import="com.hcmuaf.cart.Cart" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -9,42 +11,90 @@
 <body>
 <header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
+        <!-- Classy Menu -->
         <nav class="classy-navbar" id="essenceNav">
-            <a class="nav-brand" href="index.jsp"><img src="core-img/logo.png" alt="Logo Cửa Hàng"></a>
+            <!-- Logo -->
+            <a class="nav-brand" href="index.jsp"><img src="core-img/logo.png" alt=""></a>
+            <!-- Navbar Toggler -->
             <div class="classy-navbar-toggler">
                 <span class="navbarToggler"><span></span><span></span><span></span></span>
             </div>
+            <!-- Menu -->
             <div class="classy-menu">
+                <!-- close btn -->
                 <div class="classycloseIcon">
                     <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                 </div>
+                <!-- Nav Start -->
                 <div class="classynav">
                     <ul>
                         <li><a href="index.jsp">Trang chủ</a></li>
                         <li><a href="shop.jsp">Sản phẩm</a></li>
-                        <li><a href="about.jsp">Giới thiệu</a></li>
+                        <li><a href="about.jsp">Về chúng tôi</a></li>
                         <li><a href="contact.jsp">Liên hệ</a></li>
                     </ul>
                 </div>
+                <!-- Nav End -->
             </div>
         </nav>
+
+        <!-- Header Meta Data -->
         <div class="header-meta d-flex clearfix justify-content-end">
+            <!-- Search Area -->
             <div class="search-area">
                 <form action="#" method="post">
-                    <input type="search" name="search" id="headerSearch" placeholder="Tìm kiếm...">
+                    <input type="search" name="search" id="headerSearch" placeholder="Tìm kiếm">
                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
             </div>
+            <!-- Favourite Area -->
             <div class="favourite-area">
-                <a href="#"><img src="core-img/heart.svg" alt="Yêu thích"></a>
+                <a href="#" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;"><img src="core-img/heart.svg" alt=""></a>
             </div>
-            <div class="user-login-info">
-                <a href="Login.jsp"><img src="core-img/user.svg" alt="Đăng nhập"></a>
+
+
+            <!-- User Login Info -->
+            <div class="user-login-info" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}">
+                <% User auth = (User) session.getAttribute("auth"); %>
+                <% if(auth == null){ %>
+                <a href="Login.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 30px;"><img src="core-img/user.svg" alt=""></a>
+                <% } else { %>
+                <a href="introduce.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;"><i class="bi bi-person-circle"></i></a>
+                <p style="position: relative;
+    margin-bottom: 0;
+    left: -20px;"><%= auth.getFullname() %> </p>
+                <a href="logout.jsp">Đăng xuất</a>
+                <% } %>
             </div>
+
+
+            <%
+                Cart cart = (Cart) session.getAttribute("cart");
+                if (cart == null)
+                    cart = new Cart();
+
+            %>
+            <!-- Cart Area -->
             <div class="cart-area">
-                <a href="cart.jsp" id="essenceCartBtn"><img src="core-img/bag.svg" alt="Giỏ hàng"></a>
+                <a href="cart.jsp" id="essenceCartBtn"><img src="core-img/bag.svg" alt=""> <span><%= cart.getTotal()%></span></a>
             </div>
         </div>
+
     </div>
 </header>
 

@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
 <%
@@ -65,17 +66,35 @@
             </div>
             <!-- Favourite Area -->
             <div class="favourite-area">
-                <a href="#"><img src="core-img/heart.svg" alt=""></a>
+                <a href="#" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;"><img src="core-img/heart.svg" alt=""></a>
             </div>
 
 
             <!-- User Login Info -->
-            <div class="user-login-info" style="display: ruby">
+            <div class="user-login-info" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}">
                 <% User auth = (User) session.getAttribute("auth"); %>
                 <% if(auth == null){ %>
-                <a href="Login.jsp"><img src="core-img/user.svg" alt=""></a>
+                <a href="Login.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 30px;"><img src="core-img/user.svg" alt=""></a>
                 <% } else { %>
-                <p>Chào bạn: <%= auth.getFullname() %> </p>
+                <a href="introduce.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;"><i class="bi bi-person-circle"></i></a>
+                <p style="position: relative;
+    margin-bottom: 0;
+    left: -20px;"><%= auth.getFullname() %> </p>
                 <a href="logout.jsp">Đăng xuất</a>
                 <% } %>
             </div>
@@ -178,7 +197,7 @@
                         <!-- Product Description -->
                         <div class="product-description">
                             <span>topshop</span>
-                            <a href="sp11.jsp">
+                            <a href="sp1.jsp">
                                 <h6>Nghệ thuật kể chuyện bằng hình ảnh</h6>
                             </a>
                             <p class="product-price">143.200đ</p>
@@ -200,7 +219,7 @@
                     <div class="single-product-wrapper">
                         <!-- Product Image -->
                         <div class="product-img">
-                            <img src="ImgBOOK/2.png" alt="">
+                            <img src="ImgBOOK/14.png" alt="">
                             <div class="product-favourite">
                                 <a href="#" class="favme fa fa-heart"></a>
                             </div>
@@ -208,8 +227,8 @@
                         <!-- Product Description -->
                         <div class="product-description">
                             <span>topshop</span>
-                            <a href="sp11.jsp">
-                                <h6>MBA Bằng Hình - The Usual MBA</h6>
+                            <a href="sp14.jsp">
+                                <h6>Ghi Chép Pháp Y - Tập 2 - Khi Tử Thi Biết Nóihương</h6>
                             </a>
                             <p class="product-price">132.300đ</p>
 
@@ -217,7 +236,7 @@
                             <div class="hover-content">
                                 <!-- Add to Cart -->
                                 <div class="add-to-cart-btn">
-                                    <a href="sp3.jsp" class="btn essence-btn">Thêm vào giỏ hàng</a>
+                                    <a href="sp14.jsp" class="btn essence-btn">Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -241,7 +260,7 @@
                         <div class="product-description">
                             <span>mango</span>
                             <a href="sp3.jsp">
-                                <h6>PNguyên lý Marketing</h6>
+                                <h6>Nguyên lý Marketing</h6>
                             </a>
                             <p class="product-price"><span class="old-price">999.000đ</span> 699.300đ</p>
 
@@ -249,7 +268,7 @@
                             <div class="hover-content">
                                 <!-- Add to Cart -->
                                 <div class="add-to-cart-btn">
-                                    <a href="#" class="btn essence-btn">Thêm vào giỏ hàng</a>
+                                    <a href="sp3.jsp" class="btn essence-btn">Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -281,7 +300,7 @@
                             <div class="hover-content">
                                 <!-- Add to Cart -->
                                 <div class="add-to-cart-btn">
-                                    <a href="#" class="btn essence-btn">Thêm vào giỏ hàng</a>
+                                    <a href="sp4.jsp" class="btn essence-btn">Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>

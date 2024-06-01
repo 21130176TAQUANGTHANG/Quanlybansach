@@ -19,12 +19,13 @@ public class AddUser extends HttpServlet {
         String account = request.getParameter("account");
         String password = request.getParameter("password");
         String name = request.getParameter("name");
+        String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
         int position = Integer.parseInt(request.getParameter("position"));
 
         ControllerDAO dao =new ControllerDAO();
-        dao.addUser(new User(account,password,name,phone,address,position));
+        dao.addUser(new User(account,password,name,email,phone,address,position));
         response.sendRedirect("adminUser.jsp");
     }
 }

@@ -50,17 +50,35 @@
             </div>
             <!-- Favourite Area -->
             <div class="favourite-area">
-                <a href="#"><img src="core-img/heart.svg" alt=""></a>
+                <a href="#" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;"><img src="core-img/heart.svg" alt=""></a>
             </div>
 
 
             <!-- User Login Info -->
-            <div class="user-login-info" style="display: ruby">
+            <div class="user-login-info" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}">
                 <% User auth = (User) session.getAttribute("auth"); %>
                 <% if(auth == null){ %>
-                <a href="Login.jsp"><img src="core-img/user.svg" alt=""></a>
+                <a href="Login.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 30px;"><img src="core-img/user.svg" alt=""></a>
                 <% } else { %>
-                <p>Chào bạn: <%= auth.getFullname() %> </p>
+                <a href="introduce.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;"><i class="bi bi-person-circle"></i></a>
+                <p style="position: relative;
+    margin-bottom: 0;
+    left: -20px;"><%= auth.getFullname() %> </p>
                 <a href="logout.jsp">Đăng xuất</a>
                 <% } %>
             </div>
@@ -89,7 +107,7 @@
         <div class="row h-100 align-items-center">
             <div class="col-12">
                 <div class="page-title text-center">
-                    <h2>Checkout</h2>
+                    <h2>Thủ tục thanh toán</h2>
                 </div>
             </div>
         </div>

@@ -1,20 +1,102 @@
-<%@ page import="com.hcmuaf.db.ControllerDAO" %>
-<%@ page import="com.hcmuaf.Product.Product" %>
 <%@ page import="com.hcmuaf.login.User" %>
-<%@ page import="com.hcmuaf.cart.Cart" %><%--
-  Created by IntelliJ IDEA.
-  User: thang
-  Date: 5/20/2024
-  Time: 1:54 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.hcmuaf.Product.OrderProduct" %>
+<%@ page import="com.hcmuaf.db.ControllerDAO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.hcmuaf.cart.Cart" %>
+<%@ page import="com.hcmuaf.Product.OrderDetail" %>
+<%@ page import="com.hcmuaf.Product.Product" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
-    <meta charset="UTF-8">
+    <title>introduce.jsp</title>
     <link rel="stylesheet" href="css/core-style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
+<style>
+    .containersss {
+        background-color: #fff;
+        padding: 20px 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 50%;
+        position: relative;
+        top: 30px;
+        left: 350px;
+        margin-bottom: 100px;
+    }
+
+    .info-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .form-input:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+    .table-container {
+        overflow-x: auto;
+        margin: 50px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    img {
+        max-width: 50px;
+        height: auto;
+        border-radius: 4px;
+    }
+</style>
 <body>
 <header class="header_area">
     <div class="classy-nav-container breakpoint-off d-flex align-items-center justify-content-between">
@@ -86,7 +168,7 @@
     margin-bottom: 0;
     left: -20px;"><%= auth.getFullname() %> </p>
                 <a href="logout.jsp">Đăng xuất</a>
-                <% } %>
+
             </div>
 
 
@@ -105,46 +187,87 @@
     </div>
 </header>
 
-<!-- ##### Single Product Details Area Start ##### -->
-<section class="single_product_details_area d-flex align-items-center">
+<div class="containersss">
+    <form action="./EditCustomer" method="post" class="info-form">
+        <h2 class="form-title">Thông tin liên hệ</h2>
 
-    <!-- Single Product Thumb -->
-    <div class="single_product_thumb clearfix">
-        <div class="product_thumbnail_slides owl-carousel">
-            <img src="https://cdn0.fahasa.com/media/flashmagazine/images/page_images/nghe_thuat_ke_chuyen_bang_hinh_anh/2024_05_03_16_04_36_1-390x510.jpg" alt="">
-            <img src="https://cdn0.fahasa.com/media/flashmagazine/images/page_images/nghe_thuat_ke_chuyen_bang_hinh_anh/2024_05_03_16_04_36_1-390x510.jpg" alt="">
-            <img src="https://cdn0.fahasa.com/media/flashmagazine/images/page_images/nghe_thuat_ke_chuyen_bang_hinh_anh/2024_05_03_16_04_36_1-390x510.jpg" alt="">
+        <!-- Trường ẩn để truyền ID người dùng -->
+        <input type="hidden" name="id" value="<%= auth.getId() %>">
+
+        <div class="form-group">
+            <label for="username">Tài khoản</label>
+            <input value="<%=auth.getUsername()%>" name="editAccount" type="text" id="username" class="form-input">
         </div>
+
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input value="<%= auth.getPassword()%>" name="editPassword" type="text" id="password" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label for="name">Họ và tên</label>
+            <input value="<%=auth.getFullname()%>" name="editName" type="text" id="name" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input value="<%=auth.getEmail()%>" name="editEmail" type="email" id="email" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input value="<%=auth.getPhone()%>" name="editPhone" type="tel" id="phone" class="form-input">
+        </div>
+
+        <div class="form-group">
+            <label for="address">Địa chỉ</label>
+            <input value="<%=auth.getAddress()%>" name="editAddress" type="text" id="address" class="form-input">
+        </div>
+
+        <button type="submit" class="submit-btn">Lưu thay đổi</button>
+    </form>
+</div>
+
+
+<div class="">
+    <h2 class="form-title">Lịch sử mua hàng</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>Mã đơn hàng</th>
+                <th>Ngày đặt hàng</th>
+                <th>Tên sản phẩm</th>
+                <th>Hình ảnh</th>
+                <th>Tổng tiền</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if (auth != null) {
+                ControllerDAO dao = new ControllerDAO();
+                List<OrderProduct> orderHistory = dao.getOrderHistory(auth.getEmail());
+                for (OrderProduct order : orderHistory) {
+                    // Lấy thông tin chi tiết đơn hàng
+                    List<OrderDetail> orderDetails = dao.getOrderDetails(order.getId());
+                    for (OrderDetail detail : orderDetails) {
+                        // Lấy thông tin sản phẩm từ mã sản phẩm
+                        Product product = dao.getProduct(detail.getProduct_id());
+            %>
+            <tr>
+                <td><%= order.getId() %></td>
+                <td><%= order.getOrderDate() %></td>
+                <td><%= product.getName() %></td>
+                <td><img src="<%= product.getImage() %>" alt="<%= product.getName() %>"></td>
+                <td><%= order.getTotal() %> VND</td>
+            </tr>
+            <% }
+            }
+            } %>
+            </tbody>
+        </table>
     </div>
-
-    <!-- Single Product Description -->
-    <div class="single_product_desc clearfix">
-        <span>mango</span>
-        <a href="cart.html">
-            <h2>Nghệ Thuật Kể Chuyện Bằng Hình Ảnh</h2>
-        </a>
-        <p class="product-price"><span class="old-price">179.000đ</span> 143.200đ</p>
-        <!-- Form -->
-        <form class="cart-form clearfix" method="post">
-            <div class="cart-fav-box d-flex align-items-center">
-                <!-- Cart -->
-                <%
-                    ControllerDAO db = new ControllerDAO();
-                    Product product = db.getById(1);
-                %>
-                <button type="button" class="btn essence-btn" onclick="window.location.href='./add-cart?id=<%=product.getId()%>'">Thêm vào giỏ hàng</button>
-
-                <!-- Favourite -->
-                <div class="product-favourite ml-4">
-                    <a href="#" class="favme fa fa-heart"></a>
-                </div>
-            </div>
-        </form>
-    </div>
-</section>
-<!-- ##### Single Product Details Area End ##### -->
-
-<!-- ##### Footer Area Start ##### -->
+</div>
+<% } %>
 <footer class="footer_area clearfix">
     <div class="container">
         <div class="row">
@@ -204,26 +327,11 @@
         <div class="row mt-5">
             <div class="col-md-12 text-center">
                 <p>
-                    &copy; <script>document.write(new Date().getFullYear());</script> Bản quyền thuộc về cửa hàng sách | Được thiết kế bởi <a href="https://colorlib.com" target="_blank">Colorlib</a>, phân phối bởi <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+                    &copy; <script>document.write(new Date().getFullYear());</script> Bản quyền thuộc về cửa hàng sách | Được thiết kế bởi <a href="admin.jsp" target="_blank">Colorlib</a>, phân phối bởi <a href="index.jsp" target="_blank">ThemeWagon</a>
                 </p>
             </div>
         </div>
     </div>
 </footer>
-<!-- ##### Footer Area End ##### -->
-
-<!-- jQuery (Necessary for All JavaScript Plugins) -->
-<script src="js/jquery/jquery-2.2.4.min.js"></script>
-<!-- Popper js -->
-<script src="js/popper.min.js"></script>
-<!-- Bootstrap js -->
-<script src="js/bootstrap.min.js"></script>
-<!-- Plugins js -->
-<script src="js/plugins.js"></script>
-<!-- Classy Nav js -->
-<script src="js/classy-nav.min.js"></script>
-<!-- Active js -->
-<script src="js/active.js"></script>
-
 </body>
 </html>

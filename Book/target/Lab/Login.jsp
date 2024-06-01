@@ -186,7 +186,7 @@ margin-top: 100px;">
 
                 <!-- Submit button -->
                 <button type="submit" class="btn btn-primary btn-block mb-4">Đăng nhập</button>
-
+            </form>
         </div>
         <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
             <form action="./sign-up" method="post">
@@ -239,8 +239,6 @@ margin-top: 100px;">
                     <input type="email" id="registerEmail" class="form-control" name="registerEmail"/>
                     <label class="form-label" for="registerEmail">Email</label>
                 </div>
-
-
 
                 <div data-mdb-input-init class="form-outline mb-4">
                     <input type="text" id="registerPhone" class="form-control" name="registerPhone"/>
@@ -354,8 +352,7 @@ margin-top: 100px;">
 <script src="js/classy-nav.min.js"></script>
 <!-- Active js -->
 <script src="js/active.js"></script>
-<!-- Google Maps -->
-<script src="js/map-active.js"></script>
+
 
 </body>
 </html>

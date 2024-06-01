@@ -48,6 +48,16 @@
         border-radius: 5px;
         cursor: pointer;
     }
+    .editphandoi{
+        display: flex;
+    }
+    .phandoi-one{
+        padding: 0 20px 0 0;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+    }
 </style>
 <body>
 <%
@@ -58,24 +68,30 @@
 
 <form action="./EditUser" method="post">
     <h2 style="margin-bottom: 20px;">Sửa thông tin tài khoản</h2>
-    1
-    <label for="id">Id:</label>
-    <input value="<%=user.getId()%>" type="text" id="id" name="id" readonly>
+    <div class="editphandoi">
+        <div class="phandoi-one">
+            <label for="editAccount">Tài khoản:</label>
+            <input value="<%=user.getUsername()%>" type="text" id="editAccount" name="editAccount" required>
 
-    <label for="editAccount">Tài khoản:</label>
-    <input value="<%=user.getUsername()%>" type="text" id="editAccount" name="editAccount" required>
+            <label for="editPassword">Mật khẩu:</label>
+            <input value="<%=user.getPassword()%>" type="text" id="editPassword" name="editPassword" required>
+        </div>
 
-    <label for="editPassword">Mật khẩu:</label>
-    <input value="<%=user.getPassword()%>" type="text" id="editPassword" name="editPassword" required>
+        <div class="phandoi">
+            <label for="editName">Họ và tên:</label>
+            <input value="<%=user.getFullname()%>" type="text" id="editName" name="editName" required>
 
-    <label for="editName">Họ và tên:</label>
-    <input value="<%=user.getFullname()%>" type="text" id="editName" name="editName" required>
+            <label for="editName">Email:</label>
+            <input value="<%=user.getEmail()%>" type="text" id="editEmail" name="editName" required>
 
-    <label for="editPhone">Số điện thoại:</label>
-    <input value="<%=user.getPhone()%>" type="number" id="editPhone" name="editPhone" required>
+            <label for="editPhone">Số điện thoại:</label>
+            <input value="<%=user.getPhone()%>" type="number" id="editPhone" name="editPhone" required>
 
-    <label for="editAddress">Địa chỉ:</label>
-    <input value="<%=user.getAddress()%>" type="text" id="editAddress" name="editAddress" required>
+            <label for="editAddress">Địa chỉ:</label>
+            <input value="<%=user.getAddress()%>" type="text" id="editAddress" name="editAddress" required>
+        </div>
+    </div>
+
 
     <button type="submit">Sửa thông tin người dùng</button>
 </form>

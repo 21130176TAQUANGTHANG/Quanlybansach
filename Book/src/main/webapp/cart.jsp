@@ -51,29 +51,44 @@
 
         <!-- Header Meta Data -->
         <div class="header-meta d-flex clearfix justify-content-end">
-            <!-- Form Tìm Kiếm -->
+            <!-- Search Area -->
             <div class="search-area">
-                <form action="shop.jsp" method="get">
-                    <input type="search" name="searchText" id="headerSearch" placeholder="Tìm kiếm">
+                <form action="#" method="post">
+                    <input type="search" name="search" id="headerSearch" placeholder="Tìm kiếm">
                     <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
             </div>
-
             <!-- Favourite Area -->
             <div class="favourite-area">
-                <a href="#"><img src="core-img/heart.svg" style="position: relative; top: 30px;"alt=""></a>
+                <a href="#" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;"><img src="core-img/heart.svg" alt=""></a>
             </div>
 
 
             <!-- User Login Info -->
             <div class="user-login-info" style="display: flex;
     justify-content: center;
-    align-items: center;">
+    text-align: center;
+    align-items: center;
+}">
                 <% User auth = (User) session.getAttribute("auth"); %>
                 <% if(auth == null){ %>
-                <a href="Login.jsp"><img src="core-img/user.svg" style="position: relative; top: 30px;"alt=""></a>
+                <a href="Login.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 30px;"><img src="core-img/user.svg" alt=""></a>
                 <% } else { %>
-                <p>Chào bạn: <%= auth.getFullname() %> </p>
+                <a href="introduce.jsp" style="display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 20px;"><i class="bi bi-person-circle"></i></a>
+                <p style="position: relative;
+    margin-bottom: 0;
+    left: -20px;"><%= auth.getFullname() %> </p>
                 <a href="logout.jsp">Đăng xuất</a>
                 <% } %>
             </div>
@@ -86,8 +101,8 @@
 
             %>
             <!-- Cart Area -->
-            <div class="cart-area" >
-                <a href="cart.jsp" id="essenceCartBtn"><img src="core-img/bag.svg"style="position: relative; top: 30px;" alt=""> <span><%= cart.getTotal()%></span></a>
+            <div class="cart-area">
+                <a href="cart.jsp" id="essenceCartBtn"><img src="core-img/bag.svg" alt=""> <span><%= cart.getTotal()%></span></a>
             </div>
         </div>
 

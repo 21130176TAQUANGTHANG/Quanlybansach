@@ -17,11 +17,12 @@ public class EditUser extends HttpServlet {
         String account = req.getParameter("editAccount");
         String password =req.getParameter("editPassword");
         String name = req.getParameter("editName");
-        int phone = Integer.parseInt(req.getParameter("editPhone"));
+        String email = req.getParameter("editEmail");
+        String phone = req.getParameter("editPhone");
         String address = req.getParameter("editAddress");
 
         ControllerDAO dao = new ControllerDAO();
-        dao.updateUser(account,password,name,phone,address,id);
+        dao.updateUser(account,password,name,email,phone,address,id);
         resp.sendRedirect("adminUser.jsp");
 
     }

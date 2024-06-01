@@ -4,8 +4,12 @@ import com.hcmuaf.Product.*;
 import com.hcmuaf.PurchaseStatistics;
 import com.hcmuaf.login.User;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.sql.Timestamp;
 
@@ -50,7 +54,8 @@ public class ControllerDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getString(7),
+                        rs.getInt(8)
                 ));
             }
         } catch (SQLException e) {
@@ -76,7 +81,8 @@ public class ControllerDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getString(7),
+                        rs.getInt(8)
                 );
                 return a;
             }
@@ -98,13 +104,14 @@ public class ControllerDAO {
             rs=ps.executeQuery();
             while (rs.next()) {
                 User a = new User(
-                        rs.getInt(1), // Sửa đúng số cột trả về từ câu truy vấn
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7)
+                        rs.getString(7),
+                        rs.getInt(8)
                 );
                 return a;
             }
@@ -115,19 +122,31 @@ public class ControllerDAO {
         }
         return null;
     }
-    public void signup(String username,String password, String Fullname, String phone,String address){
-        String query = "INSERT INTO users(username, password, Fullname, phone, address, role) VALUES(?, ?, ?, ?, ?, 0)";
+    public void signup(String username,String password, String Fullname, String email, String phone,String address){
+        String query = "INSERT INTO users(username, password, fullname, email, phone, address, role) VALUES(?, ?, ?, ?, ?, ?, 1)";
         try {
             conn= new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1,username);
             ps.setString(2,password);
             ps.setString(3,Fullname);
-            ps.setString(4,phone);
-            ps.setString(5,address);
+            ps.setString(4,email);
+            ps.setString(5,phone);
+            ps.setString(6, address);
             ps.executeUpdate();
 
         } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    // Hàm băm mật khẩu
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hashedPassword = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(hashedPassword);
+        } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
     }
@@ -475,13 +494,15 @@ public class ControllerDAO {
             ps.setInt(1, proid);
             rs = ps.executeQuery();
             while (rs.next()) {
-                User p = new User(rs.getInt(1),
+                User p = new User(
+                        rs.getInt(1), // Sửa đúng số cột trả về từ câu truy vấn
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getInt(7));
+                        rs.getString(7),
+                        rs.getInt(8));
                 return p;
             }
         } catch (SQLException e) {
@@ -517,40 +538,54 @@ public class ControllerDAO {
         return list;
     }
     public void addUser(User user) {
-        String sql = "INSERT INTO users(username, password, Fullname, phone, address,role) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO users(username, password, fullname, email, phone, address,role) VALUES(?,?,?,?,?,?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1,user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFullname());
-            ps.setString(4, user.getPhone());
-            ps.setString (5,user.getAddress());
-            ps.setInt(6, user.getRole());
+            ps.setString(4, user.getEmail());
+            ps.setString (5,user.getPhone());
+            ps.setString(6, user.getAddress());
+            ps.setInt(7, user.getRole());
             ps.executeUpdate();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public boolean updateUser(String username, String password, String name, int phone, String address, int id) {
-        String sql = "UPDATE users SET username =?, password=?, Fullname=?,phone =?, address=? WHERE id = ?";
+    public boolean updateUser(String username, String password, String name, String email, String phone, String address, int id) {
+        String sql = "UPDATE users SET username = ?, password = ?, fullname = ?, email = ?, phone = ?, address = ? WHERE id = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, username);
             ps.setString(2, password);
             ps.setString(3, name);
-            ps.setInt(4, phone);
-            ps.setString(5, address);
-            ps.setInt(6, id);
-            ps.executeUpdate();
+            ps.setString(4, email);
+            ps.setString(5, phone);
+            ps.setString(6, address);
+            ps.setInt(7, id);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0; // Trả về true nếu có ít nhất một hàng được cập nhật, ngược lại trả về false
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false; // Trả về false nếu có lỗi xảy ra
+        } finally {
+            // Đảm bảo đóng kết nối và PreparedStatement
+            try {
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
-        return true;
     }
+
+
     public List<PurchaseStatistics> getUserPurchaseStatistics() {
         List<PurchaseStatistics> list = new ArrayList<>();
         String query = "SELECT YEAR(orderDate) AS year, MONTH(orderDate) AS month, DAY(orderDate) AS day, COUNT(DISTINCT id) AS userCount " +
@@ -584,21 +619,108 @@ public class ControllerDAO {
         return list;
     }
 
+    public List<OrderProduct> getOrderHistory(String email) {
+        List<OrderProduct> orderHistory = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM orderproduct WHERE email = ?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int orderID = rs.getInt("id");
+                String fullname = rs.getString("name");
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                int totalproduct = rs.getInt("total");
+                Timestamp orderDate = rs.getTimestamp("orderDate");
+                OrderProduct orderProduct = new OrderProduct(orderID, fullname, phone, email, address, totalproduct, orderDate);
+                orderHistory.add(orderProduct);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return orderHistory;
+    }
+
+    public List<OrderDetail> getOrderDetails(int orderID) {
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM orderdetail WHERE orderID = ?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, orderID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int productId = rs.getInt("productID");
+                int quantity = rs.getInt("quantity");
+                int totalPrice = rs.getInt("price");
+                OrderDetail orderDetail = new OrderDetail(productId, orderID, quantity, totalPrice);
+                orderDetails.add(orderDetail);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return orderDetails;
+    }
+    public Product getProduct(int productId) {
+        Product product = null;
+        try {
+            String sql = "SELECT * FROM products WHERE id = ?";
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productId);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                String name = rs.getString("name");
+                String imageUrl = rs.getString("image");
+                // Bổ sung các trường thông tin khác của sản phẩm nếu cần
+                product = new Product(productId, name, imageUrl);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return product;
+    }
+
 
     public static void main(String[] args) {
         ControllerDAO dao = new ControllerDAO();
 
-        // Test case 1: Đăng nhập thành công với tài khoản hợp lệ
-        String validUsername = "thang"; // Thay thế bằng username hợp lệ
-        String validPassword = "thang"; // Thay thế bằng password hợp lệ
-        User validUser = dao.checkLogin(validUsername, validPassword);
-        if (validUser != null) {
-            System.out.println("Test case 1: Đăng nhập thành công.");
-            System.out.println(validUser);
-        } else {
-            System.out.println("Test case 1: Đăng nhập thất bại.");
-        }
+        // Test case 1: Thêm tài khoản mới
+        String newUsername = "han"; // Thay thế bằng username mới
+        String newPassword = "han"; // Thay thế bằng password mới
+        String fullname = "han dep gai"; // Thay thế bằng tên đầy đủ mới
+        String email = "han@example.com"; // Thay thế bằng email mới
+        String phone = "123456789"; // Thay thế bằng số điện thoại mới
+        String address = "123 New Street"; // Thay thế bằng địa chỉ mới
 
+        // Kiểm tra nếu tài khoản đã tồn tại
+        User existingUser = dao.checkLoginExist(newUsername);
+        if (existingUser == null) {
+            // Đăng ký người dùng mới
+            dao.signup(newUsername, newPassword, fullname, email, phone, address);
+            System.out.println("Test case 1: Đăng ký thành công cho người dùng mới.");
+
+            // Kiểm tra đăng nhập với tài khoản mới tạo
+            User newUser = dao.checkLogin(newUsername, newPassword);
+            if (newUser != null) {
+                System.out.println("Đăng nhập thành công với tài khoản mới.");
+                System.out.println(newUser);
+            } else {
+                System.out.println("Đăng nhập thất bại với tài khoản mới.");
+            }
+        } else {
+            System.out.println("Test case 1: Tên người dùng đã tồn tại.");
         }
+    }
+
 
 }

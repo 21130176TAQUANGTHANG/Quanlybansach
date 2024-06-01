@@ -82,6 +82,16 @@
         border-radius: 4px;
         cursor: pointer;
     }
+    .addphandoi{
+        display: flex;
+    }
+    .phandoi-one{
+        padding: 0 20px 0 0;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+    }
 </style>
 <body>
 
@@ -115,24 +125,33 @@
         <span class="close-btn" onclick="togglePopup()">&times;</span>
         <h2>Thông tin cá nhân</h2>
         <form action="./AddUser" method="post">
+            <div class="addphandoi">
+                <div class="phandoi-one">
+                    <label for="account">Tài khoản:</label>
+                    <input type="text" id="account" name="account" required>
 
-            <label for="account">Tài khoản:</label>
-            <input type="text" id="account" name="account" required>
+                    <label for="password">Mật khẩu:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
 
-            <label for="password">Mật khẩu:</label>
-            <input type="password" id="password" name="password" required>
+                <div class="phandoi">
+                    <label for="name">Tên:</label>
+                    <input type="text" id="name" name="name" required>
 
-            <label for="name">Tên:</label>
-            <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="text" id="email" name="email" required>
 
-            <label for="phone">Số điện thoại:</label>
-            <input type="tel" id="phone" name="phone" required>
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="tel" id="phone" name="phone" required>
 
-            <label for="address">Địa chỉ:</label>
-            <input type="text" id="address" name="address" required>
+                    <label for="address">Địa chỉ:</label>
+                    <input type="text" id="address" name="address" required>
 
-            <label for="position">Chức vụ:</label>
-            <input type="number" id="position" name="position" required>
+                    <label for="position">Chức vụ:</label>
+                    <input type="number" id="position" name="position" required>
+                </div>
+            </div>
+
 
             <button type="submit">Đăng ký</button>
         </form>
@@ -148,6 +167,7 @@
             <th>Email</th>
             <th>Mật khẩu</th>
             <th>Họ tên</th>
+            <th>Email</th>
             <th>Số điện thoại</th>
             <th>Địa chỉ</th>
             <th></th>
@@ -165,6 +185,7 @@
             <td><%=a.getUsername()%></td>
             <td><%=a.getPassword()%></td>
             <td><%=a.getFullname()%></td>
+            <td><%=a.getEmail()%></td>
             <td><%=a.getPhone()%></td>
             <td><%=a.getAddress()%></td>
             <td>

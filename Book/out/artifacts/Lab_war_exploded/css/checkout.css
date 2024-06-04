@@ -1,0 +1,61 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+}
+#bill-wrapper{
+    display: flex;
+    padding: 40px 50px;
+    justify-content: space-around;
+}
+#information-customer{
+    width: auto;
+}
+#information-customer h2 {
+    padding: 20px;
+}
+.user label{
+    padding:20px;
+}
+.user input{
+
+
+}
+.fullname label{
+    padding-right: 75px;
+}
+
+.phone label{
+    padding-right: 50px;
+}
+.email label {
+    padding-right: 100px;
+}
+.city label{
+    padding:20px 70px 20px 20px;
+}
+.city select{
+    padding:10px;
+}
+.district label{
+    padding:20px 105px 20px 20px;
+
+}
+.district select{
+    padding:10px;
+}
+.information-bill{
+    width: 500px;
+}
+.information-bill h2{
+    padding:20px;
+}
+.bill span{
+    font-size: 20px;
+    padding:20px
+}
+.bill{
+    border-bottom: 1px solid black;
+    padding-bottom: 40px;
+    margin-bottom: 40px;
+}

@@ -1,0 +1,97 @@
+body{
+    font-family: Arial sans-serif;
+    padding: 0;
+    margin: 0;
+}
+#login-super{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid rgba(248, 231, 231, 0.63);
+}
+.login{
+    border: 3px solid rgba(221, 221, 221, 0.56);
+}
+.login .content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.content h2{
+    padding-top: 30px;
+}
+.login form{
+    padding: 20px;
+}
+.login .input-box{
+    padding: 10px;
+}
+.login .input-box .input{
+    padding: 8px;
+}
+.input input{
+    padding: 8px;
+    border-radius: 30px;
+    width: 300px;
+}
+.submit{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    padding: 8px;
+}
+.submit button{
+    border-radius: 30px;
+    border: none;
+    padding: 20px 30px;
+    background-color: #BF1E2E;
+    font-weight: bolder;
+}
+.sign_up {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sign_up a {
+    text-decoration: none;
+    color: crimson;
+}
+.sign_up p{
+    margin: 0;
+}
+.password {
+    display: flex;
+    justify-content: center;
+}
+.password a {
+    text-decoration: none;
+    color:crimson;
+}
+.card-body{
+    height: 400px;
+    width: auto;
+    padding-top: 60px;
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.form-group h2{
+    padding: 20px;
+}
+.form-group input{
+    margin: 20px 30px 20px 100px;
+    border-radius: 10px;
+}
+.card-footer {
+    display: flex;
+    justify-content: center;
+}
+.card-footer button{
+    padding:5px 30px;
+}
